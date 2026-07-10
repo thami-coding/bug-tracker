@@ -35,7 +35,7 @@ describe("AddBugModal", () => {
     await userEvent.type(screen.getByLabelText("Title"), "Test Bug");
     await userEvent.type(
       screen.getByLabelText("Description"),
-      "Test Description"
+      "Test Description",
     );
     await userEvent.selectOptions(screen.getByLabelText("Priority"), "High");
 
@@ -69,7 +69,7 @@ describe("AddBugModal", () => {
 
     expect(titleInput).toHaveValue("New Bug");
     expect(descriptionInput).toHaveValue("New Description");
-    expect(prioritySelect).toHaveValue("Low");
+    expect(prioritySelect).toHaveValue("LowXXXXX");
   });
 
   it("should not submit form with empty required fields", async () => {
@@ -87,7 +87,7 @@ describe("AddBugModal", () => {
     await userEvent.clear(screen.getByLabelText("Title"));
     await userEvent.type(
       screen.getByLabelText("Description"),
-      "Test Description"
+      "Test Description",
     );
     fireEvent.submit(screen.getByRole("button", { name: "Add Bug" }));
     expect(mockOnSubmit).not.toHaveBeenCalled();
