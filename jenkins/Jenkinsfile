@@ -2,9 +2,12 @@ pipeline {
     agent any
 
     stages {
+        stage('Execute Unit Tests') {
+            parallel {
+
         stage('Unit Test - Backend') {
             agent {
-                docker{
+                docker {
                     image 'snakee/golang-junit:1.21'
                     reuseNode true
                 }
@@ -14,7 +17,7 @@ pipeline {
                 GOMODCACHE = '/tmp/go-mod-cache'
                 }
             steps {
-               dir('bugtracker-backend'){
+               dir('bugtracker-backend') {
                 sh '''
                     go test -v ./... 2>&1 | go-junit-report > test-results.xml
 
@@ -38,16 +41,15 @@ pipeline {
                 }
             }
         }
-
-        stage('Unit Tests - Frontend'){
-            agent{
-                docker{
+        stage('Unit Tests - Frontend') {
+            agent {
+                docker {
                     image "node:20-alpine"
                     reuseNode true
                 }
             }
             steps {
-                dir('bugtracker-frontend'){
+                dir('bugtracker-frontend') {
                     sh '''
                     npm ci
                     npm test
@@ -59,13 +61,20 @@ pipeline {
             post {
                 always {
                     junit 'bugtracker-frontend/test-results.xml'
-                    publishHTML target:[
+                    publishHTML target: [
                         reportDir: 'bugtracker-frontend/reports/coverage',
                         reportFiles: 'index.html',
                         reportName: 'Frontend Coverage Report'
                     ]
                 }
             }
+        }
+            }
+        }
+    }
+    post {
+        always {
+            cleanWs()
         }
     }
 }
