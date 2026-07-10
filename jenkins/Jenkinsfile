@@ -23,7 +23,7 @@ pipeline {
         stage('Unit Tests - Frontend'){
             agent{
                 docker{
-                    image: "mode:20-alpine"
+                    image "node:20-alpine"
                     reuseNode true
                 }
             }
