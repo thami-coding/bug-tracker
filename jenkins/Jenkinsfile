@@ -89,7 +89,7 @@ pipeline {
                 docker {
                     image 'mcr.microsoft.com/playwright:v1.50.0-jammy'
                     reuseNode true
-                    args '-u --network=host'
+                    args '-u 0 --network=host'
                 }
             }
             steps {
