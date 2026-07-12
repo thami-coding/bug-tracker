@@ -150,7 +150,7 @@ pipeline {
                     sh 'k6 run script.js'
                 }
             }
-            post{
+            post {
                 always {
                     publishHTML target: [
                         reportDir: 'tests-perf',
