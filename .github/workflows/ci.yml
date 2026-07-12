@@ -4,7 +4,7 @@ on:
   push:
     brnaches:
       - main
-    workflow_dispatch:
+  workflow_dispatch:
 
 jobs:
   unit-tests-backend:
