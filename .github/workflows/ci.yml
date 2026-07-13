@@ -202,7 +202,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: performance-report
-          path: perf-result.html
+          path: perf-results.html
           retention-days: 30
           
       - name: Publish API Test Results
